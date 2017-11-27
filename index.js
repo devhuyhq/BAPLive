@@ -1,3 +1,3 @@
-import BAPLive from "./lib/BAPLive";
+const BAPLive = require("./lib/BAPLive");
 
-export default BAPLive;
+module.exports = BAPLive;
