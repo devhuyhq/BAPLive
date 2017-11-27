@@ -20,7 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-const io = require('socket.io').listen(server);
+const io = require('socket.io').listen(server, {pingTimeout: 30000});
 BAPLive.init('mongodb://localhost:27017/baplive', io);
 /**
  * Listen on provided port, on all network interfaces.
