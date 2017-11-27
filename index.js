@@ -1,3 +1,3 @@
-const BAPLive = require("./lib/BAPLive");
+const BAPLive = require("./dist/BAPLive");
 
 module.exports = BAPLive;
