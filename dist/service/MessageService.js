@@ -84,10 +84,9 @@ var sendMessage = exports.sendMessage = function () {
 
                         savedMessage[_UserSchema2.default.getSchemaName()] = user;
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(savedMessage));
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)(savedMessage)));
                         socket.to(roomId).emit('on-message', (0, _ResponseUtil.dataResponse)(savedMessage));
 
-                    case 23:
+                    case 22:
                     case "end":
                         return _context.stop();
                 }
@@ -148,7 +147,6 @@ var getMessages = exports.getMessages = function () {
                                 (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(res));
                             });
                         } catch (err) {
-                            console.log(err);
                             (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.serverError)());
                         }
 

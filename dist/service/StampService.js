@@ -87,11 +87,10 @@ var sendStamp = exports.sendStamp = function () {
                         user = _context.sent;
 
                         savedStamp[_UserSchema2.default.getSchemaName()] = user;
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)(savedStamp)));
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(savedStamp));
                         socket.to(roomId).emit('on-stamp', (0, _ResponseUtil.dataResponse)(savedStamp));
 
-                    case 23:
+                    case 22:
                     case "end":
                         return _context.stop();
                 }
@@ -147,7 +146,6 @@ var getStamps = exports.getStamps = function () {
                                 (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(res));
                             });
                         } catch (err) {
-                            console.log(err);
                             (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.serverError)());
                         }
 

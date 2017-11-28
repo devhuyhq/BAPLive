@@ -53,7 +53,7 @@ var BAPLive = function () {
 
     _createClass(BAPLive, null, [{
         key: "init",
-        value: function init(databaseUrl, io, config, key) {
+        value: function init(databaseUrl, io, config, key, streamUrl) {
             var _this = this;
 
             _mongodb.MongoClient.connect(databaseUrl, function (err, db) {
@@ -61,6 +61,9 @@ var BAPLive = function () {
             });
             this.jwtKey = key;
             this.databaseUrl = databaseUrl;
+            if (streamUrl) {
+                this.streamUrl = streamUrl;
+            }
 
             if (config) {
                 if (config.userSchema) {
@@ -315,6 +318,7 @@ var BAPLive = function () {
     return BAPLive;
 }();
 
+BAPLive.streamUrl = 'rtmp://172.16.1.0:1935/live';
 BAPLive.config = {
     userSchema: _UserSchema.userSchema,
     roomSchema: _RoomSchema.roomSchema,

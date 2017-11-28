@@ -1,6 +1,6 @@
 {
   "name": "baplive",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "scripts": {
     "start": "babel-node ./bin/www",

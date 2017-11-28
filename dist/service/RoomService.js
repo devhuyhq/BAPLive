@@ -93,29 +93,34 @@ var createRoom = exports.createRoom = function () {
                     case 7:
                         result = _context2.sent;
                         _context2.next = 10;
-                        return _BAPLive2.default.database.collection(_RoomSchema2.default.getSchemaName()).findOne(_defineProperty({}, _RoomSchema2.default.getIdField(), result.insertedId));
+                        return _BAPLive2.default.database.collection(_RoomSchema2.default.getSchemaName()).updateOne(_defineProperty({}, _RoomSchema2.default.getIdField(), result.insertedId), {
+                            $set: _defineProperty({}, _RoomSchema2.default.getUrlField(), _BAPLive2.default.streamUrl + "/" + result.insertedId)
+                        });
 
                     case 10:
+                        _context2.next = 12;
+                        return _BAPLive2.default.database.collection(_RoomSchema2.default.getSchemaName()).findOne(_defineProperty({}, _RoomSchema2.default.getIdField(), result.insertedId));
+
+                    case 12:
                         savedRoom = _context2.sent;
 
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(savedRoom));
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)(savedRoom)));
                         _BAPLive2.default.io.sockets.emit('on-room-live', (0, _ResponseUtil.dataResponse)(savedRoom));
-                        _context2.next = 19;
+                        _context2.next = 20;
                         break;
 
-                    case 16:
-                        _context2.prev = 16;
+                    case 17:
+                        _context2.prev = 17;
                         _context2.t0 = _context2["catch"](3);
 
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.serverError)());
 
-                    case 19:
+                    case 20:
                     case "end":
                         return _context2.stop();
                 }
             }
-        }, _callee2, undefined, [[3, 16]]);
+        }, _callee2, undefined, [[3, 17]]);
     }));
 
     return function createRoom(_x4, _x5, _x6) {
@@ -125,9 +130,9 @@ var createRoom = exports.createRoom = function () {
 
 var joinRoom = exports.joinRoom = function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(socket, data, ack) {
-        var _BAPLive$database$col11;
+        var _BAPLive$database$col12;
 
-        var roomId, deviceId, room, userId, member, _BAPLive$database$col3, _BAPLive$database$col4, now, _$set, _BAPLive$database$col6, updatedMember, _BAPLive$database$col9, user, _BAPLive$database$col10, onlineMemberCount;
+        var roomId, deviceId, room, userId, member, _BAPLive$database$col4, _BAPLive$database$col5, now, _$set2, _BAPLive$database$col7, updatedMember, _BAPLive$database$col10, user, _BAPLive$database$col11, onlineMemberCount;
 
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
@@ -166,7 +171,7 @@ var joinRoom = exports.joinRoom = function () {
                         }
 
                         _context3.next = 13;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col3 = {}, _defineProperty(_BAPLive$database$col3, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col3, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col3));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col4 = {}, _defineProperty(_BAPLive$database$col4, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col4, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col4));
 
                     case 13:
                         member = _context3.sent;
@@ -175,7 +180,7 @@ var joinRoom = exports.joinRoom = function () {
 
                     case 16:
                         _context3.next = 18;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col4 = {}, _defineProperty(_BAPLive$database$col4, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col4, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col4));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col5 = {}, _defineProperty(_BAPLive$database$col5, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col5, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col5));
 
                     case 18:
                         member = _context3.sent;
@@ -190,7 +195,7 @@ var joinRoom = exports.joinRoom = function () {
 
                         _context3.next = 23;
                         return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).updateOne(_defineProperty({}, _MemberSchema2.default.getIdField(), new ObjectID(member[_MemberSchema2.default.getIdField()])), {
-                            $set: (_$set = {}, _defineProperty(_$set, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_$set, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_$set, _MemberSchema2.default.getStatusField(), 0), _defineProperty(_$set, _MemberSchema2.default.getUpdateAtField(), now), _$set)
+                            $set: (_$set2 = {}, _defineProperty(_$set2, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_$set2, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_$set2, _MemberSchema2.default.getStatusField(), 0), _defineProperty(_$set2, _MemberSchema2.default.getUpdateAtField(), now), _$set2)
                         });
 
                     case 23:
@@ -199,7 +204,7 @@ var joinRoom = exports.joinRoom = function () {
 
                     case 25:
                         _context3.next = 27;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).insertOne((_BAPLive$database$col6 = {}, _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getUpdateAtField(), now), _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getCreateAtField(), now), _defineProperty(_BAPLive$database$col6, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col6));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).insertOne((_BAPLive$database$col7 = {}, _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getUpdateAtField(), now), _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getCreateAtField(), now), _defineProperty(_BAPLive$database$col7, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col7));
 
                     case 27:
                         updatedMember = void 0;
@@ -215,7 +220,7 @@ var joinRoom = exports.joinRoom = function () {
                     case 31:
                         user = _context3.sent;
                         _context3.next = 34;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col9 = {}, _defineProperty(_BAPLive$database$col9, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col9, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col9));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col10 = {}, _defineProperty(_BAPLive$database$col10, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col10, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col10));
 
                     case 34:
                         updatedMember = _context3.sent;
@@ -226,26 +231,25 @@ var joinRoom = exports.joinRoom = function () {
 
                     case 38:
                         _context3.next = 40;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col10 = {}, _defineProperty(_BAPLive$database$col10, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col10, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col10));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col11 = {}, _defineProperty(_BAPLive$database$col11, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col11, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col11));
 
                     case 40:
                         updatedMember = _context3.sent;
 
                     case 41:
                         _context3.next = 43;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).find((_BAPLive$database$col11 = {}, _defineProperty(_BAPLive$database$col11, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col11, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col11)).count();
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).find((_BAPLive$database$col12 = {}, _defineProperty(_BAPLive$database$col12, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col12, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col12)).count();
 
                     case 43:
                         onlineMemberCount = _context3.sent;
 
                         updatedMember.onlineMemberCount = onlineMemberCount;
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(updatedMember));
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)(updatedMember)));
                         socket.join(roomId, function () {
                             socket.to(roomId).emit('on-join-room', (0, _ResponseUtil.dataResponse)(updatedMember));
                         });
 
-                    case 48:
+                    case 47:
                     case "end":
                         return _context3.stop();
                 }
@@ -260,9 +264,9 @@ var joinRoom = exports.joinRoom = function () {
 
 var leaveRoom = exports.leaveRoom = function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(socket, data, ack) {
-        var _$set2, _BAPLive$database$col20;
+        var _$set3, _BAPLive$database$col21;
 
-        var roomId, deviceId, room, userId, user, member, _BAPLive$database$col13, _BAPLive$database$col14, now, updatedMember, _BAPLive$database$col18, _user, _BAPLive$database$col19, onlineMemberCount;
+        var roomId, deviceId, room, userId, user, member, _BAPLive$database$col14, _BAPLive$database$col15, now, updatedMember, _BAPLive$database$col19, _user, _BAPLive$database$col20, onlineMemberCount;
 
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
@@ -302,7 +306,7 @@ var leaveRoom = exports.leaveRoom = function () {
                         }
 
                         _context4.next = 14;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col13 = {}, _defineProperty(_BAPLive$database$col13, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col13, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col13));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col14 = {}, _defineProperty(_BAPLive$database$col14, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col14, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col14));
 
                     case 14:
                         member = _context4.sent;
@@ -311,7 +315,7 @@ var leaveRoom = exports.leaveRoom = function () {
 
                     case 17:
                         _context4.next = 19;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col14 = {}, _defineProperty(_BAPLive$database$col14, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col14, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col14));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col15 = {}, _defineProperty(_BAPLive$database$col15, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col15, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col15));
 
                     case 19:
                         member = _context4.sent;
@@ -328,7 +332,7 @@ var leaveRoom = exports.leaveRoom = function () {
                         now = new Date();
 
                         _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).updateOne(_defineProperty({}, _MemberSchema2.default.getIdField(), new ObjectID(member[_MemberSchema2.default.getIdField()])), {
-                            $set: (_$set2 = {}, _defineProperty(_$set2, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_$set2, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_$set2, _MemberSchema2.default.getStatusField(), 1), _defineProperty(_$set2, _MemberSchema2.default.getUpdateAtField(), now), _$set2)
+                            $set: (_$set3 = {}, _defineProperty(_$set3, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _defineProperty(_$set3, _MemberSchema2.default.getDeviceIdField(), deviceId), _defineProperty(_$set3, _MemberSchema2.default.getStatusField(), 1), _defineProperty(_$set3, _MemberSchema2.default.getUpdateAtField(), now), _$set3)
                         });
                         updatedMember = void 0;
 
@@ -343,7 +347,7 @@ var leaveRoom = exports.leaveRoom = function () {
                     case 28:
                         _user = _context4.sent;
                         _context4.next = 31;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col18 = {}, _defineProperty(_BAPLive$database$col18, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col18, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col18));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col19 = {}, _defineProperty(_BAPLive$database$col19, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col19, _MemberSchema2.default.getUserIdField(), new ObjectID(userId)), _BAPLive$database$col19));
 
                     case 31:
                         updatedMember = _context4.sent;
@@ -354,25 +358,24 @@ var leaveRoom = exports.leaveRoom = function () {
 
                     case 35:
                         _context4.next = 37;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col19 = {}, _defineProperty(_BAPLive$database$col19, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col19, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col19));
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).findOne((_BAPLive$database$col20 = {}, _defineProperty(_BAPLive$database$col20, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col20, _MemberSchema2.default.getDeviceIdField(), deviceId), _BAPLive$database$col20));
 
                     case 37:
                         updatedMember = _context4.sent;
 
                     case 38:
                         _context4.next = 40;
-                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).find((_BAPLive$database$col20 = {}, _defineProperty(_BAPLive$database$col20, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col20, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col20)).count();
+                        return _BAPLive2.default.database.collection(_MemberSchema2.default.getSchemaName()).find((_BAPLive$database$col21 = {}, _defineProperty(_BAPLive$database$col21, _MemberSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col21, _MemberSchema2.default.getStatusField(), 0), _BAPLive$database$col21)).count();
 
                     case 40:
                         onlineMemberCount = _context4.sent;
 
                         updatedMember.onlineMemberCount = onlineMemberCount;
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(updatedMember));
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)(updatedMember)));
                         socket.to(roomId).emit('on-leave-room', (0, _ResponseUtil.dataResponse)(updatedMember));
                         socket.leave(roomId);
 
-                    case 46:
+                    case 45:
                     case "end":
                         return _context4.stop();
                 }
@@ -387,8 +390,7 @@ var leaveRoom = exports.leaveRoom = function () {
 
 var changeStatus = exports.changeStatus = function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(socket, data, ack) {
-        var roomId, status, user, room, updateData, _updateData;
-
+        var roomId, status, user, room, updateData;
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
                 switch (_context5.prev = _context5.next) {
@@ -426,13 +428,8 @@ var changeStatus = exports.changeStatus = function () {
                         return _context5.abrupt("return", (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.errorResponse)(401, 'no_permission')));
 
                     case 11:
-                        updateData = void 0;
+                        updateData = _defineProperty({}, _RoomSchema2.default.getStatusField(), status);
 
-                        if (status === 1) {
-                            updateData = (_updateData = {}, _defineProperty(_updateData, _RoomSchema2.default.getStatusField(), status), _defineProperty(_updateData, _RoomSchema2.default.getUrlField(), "rtmp://172.16.1.54:1935/live/" + room._id), _updateData);
-                        } else {
-                            updateData = _defineProperty({}, _RoomSchema2.default.getStatusField(), status);
-                        }
 
                         _BAPLive2.default.database.collection(_RoomSchema2.default.getSchemaName()).updateOne(_defineProperty({}, _RoomSchema2.default.getIdField(), new ObjectID(roomId)), {
                             $set: updateData
@@ -440,10 +437,9 @@ var changeStatus = exports.changeStatus = function () {
 
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(Object.assign({}, room, updateData)));
 
-                        console.log((0, _ResponseUtil.dataResponse)(Object.assign({}, room, updateData)));
                         _BAPLive2.default.io.sockets.emit('on-change-status', (0, _ResponseUtil.dataResponse)(Object.assign({}, room, updateData)));
 
-                    case 17:
+                    case 15:
                     case "end":
                         return _context5.stop();
                 }
@@ -541,9 +537,9 @@ var getRoomInfo = exports.getRoomInfo = function () {
 
 var likeRoom = exports.likeRoom = function () {
     var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(socket, data, ack) {
-        var _BAPLive$database$col26;
+        var _BAPLive$database$col27;
 
-        var roomId, room, like, _BAPLive$database$col27, now, likeCount;
+        var roomId, room, like, _BAPLive$database$col28, now, likeCount;
 
         return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
@@ -574,7 +570,7 @@ var likeRoom = exports.likeRoom = function () {
 
                     case 8:
                         _context7.next = 10;
-                        return _BAPLive2.default.database.collection(_LikeSchema2.default.getSchemaName()).findOne((_BAPLive$database$col26 = {}, _defineProperty(_BAPLive$database$col26, _LikeSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col26, _LikeSchema2.default.getUserIdField(), new ObjectID(socket.user[_UserSchema2.default.getIdField()])), _BAPLive$database$col26));
+                        return _BAPLive2.default.database.collection(_LikeSchema2.default.getSchemaName()).findOne((_BAPLive$database$col27 = {}, _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getUserIdField(), new ObjectID(socket.user[_UserSchema2.default.getIdField()])), _BAPLive$database$col27));
 
                     case 10:
                         like = _context7.sent;
@@ -586,7 +582,7 @@ var likeRoom = exports.likeRoom = function () {
 
                         now = new Date();
                         _context7.next = 15;
-                        return _BAPLive2.default.database.collection(_LikeSchema2.default.getSchemaName()).insertOne((_BAPLive$database$col27 = {}, _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getUserIdField(), new ObjectID(socket.user[_UserSchema2.default.getIdField()])), _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getCreateAtField(), now), _defineProperty(_BAPLive$database$col27, _LikeSchema2.default.getUpdateAtField(), now), _BAPLive$database$col27));
+                        return _BAPLive2.default.database.collection(_LikeSchema2.default.getSchemaName()).insertOne((_BAPLive$database$col28 = {}, _defineProperty(_BAPLive$database$col28, _LikeSchema2.default.getUserIdField(), new ObjectID(socket.user[_UserSchema2.default.getIdField()])), _defineProperty(_BAPLive$database$col28, _LikeSchema2.default.getRoomIdField(), new ObjectID(roomId)), _defineProperty(_BAPLive$database$col28, _LikeSchema2.default.getCreateAtField(), now), _defineProperty(_BAPLive$database$col28, _LikeSchema2.default.getUpdateAtField(), now), _BAPLive$database$col28));
 
                     case 15:
                         _context7.next = 19;
@@ -609,10 +605,9 @@ var likeRoom = exports.likeRoom = function () {
                             isLiked: !like
                         }));
 
-                        console.log(JSON.stringify((0, _ResponseUtil.dataResponse)({ roomId: roomId, likeCount: likeCount })));
                         _BAPLive2.default.io.sockets.emit('on-like-room', (0, _ResponseUtil.dataResponse)({ roomId: roomId, likeCount: likeCount }));
 
-                    case 25:
+                    case 24:
                     case "end":
                         return _context7.stop();
                 }

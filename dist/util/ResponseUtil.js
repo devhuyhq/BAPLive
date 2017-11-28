@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var serverError = exports.serverError = function serverError() {
+    console.log({
+        status: 500,
+        message: 'server_error'
+    });
     return {
         status: 500,
         message: 'server_error'
@@ -11,6 +15,10 @@ var serverError = exports.serverError = function serverError() {
 };
 
 var dataResponse = exports.dataResponse = function dataResponse(data) {
+    console.log({
+        status: 0,
+        data: data
+    });
     return {
         status: 0,
         data: data
@@ -18,6 +26,10 @@ var dataResponse = exports.dataResponse = function dataResponse(data) {
 };
 
 var errorResponse = exports.errorResponse = function errorResponse(status, message) {
+    console.log({
+        status: status,
+        message: message
+    });
     return {
         status: status,
         message: message
