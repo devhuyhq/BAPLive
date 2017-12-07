@@ -36,11 +36,13 @@ On event|Description
 * `access-token`: Token được gửi lên từ Headers
 
 ##Format result data
+
 * `status`: 0 - success
 * `data`: Data result
 
-####Example
-```
+###Example
+
+```javascript
 {
   "status": 0,
   "data": {
