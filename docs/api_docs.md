@@ -30,3 +30,27 @@ On event|Description
 **[on-leave-room](./on-leave-room.md)**         |Có User rời khỏi Room
 **[on-change-status](./on-change-status.md)**   |Room thay đổi trạng thái (status)
 **[on-like-room](./on-like-room.md)**           |Có User like Room
+
+##Authentication
+
+* `access-token`: Token được gửi lên từ Headers
+
+##Format result data
+* `status`: 0 - success
+* `data`: Data result
+
+####Example
+```
+{
+  "status": 0,
+  "data": {
+    "_id": "5a1d186a6bebf51df9224934",
+    "admin": "5a0d3c24c53c8acb037b39ee",
+    "roomName": "xxx",
+    "createAt": "2017-11-28T08:03:54.658Z",
+    "updateAt": "2017-11-28T08:03:54.658Z",
+    "status": 0,
+    "url": "rtmp://172.16.1.0:1935/live/5a1d186a6bebf51df9224934"
+  }
+}
+```
