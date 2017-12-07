@@ -2,8 +2,8 @@
 
 ## Checklist
 
-###Emit
-
+Emit
+---
 Emit event | Description
 ----|--------
 **[create-room](./create_room.md)**             |User tạo một Room mới
@@ -18,8 +18,8 @@ Emit event | Description
 **[send-stamp](./send-stamp.md)**               |User gửi stamp trong Room
 **[typing](./typing.md)**                       |User đang nhập tin nhắn
 
-##On
-
+On
+---
 On event|Description
 -------|-----------
 **[on-message](./on-message.md)**               |Nhận được tin nhắn mới từ 1 User
