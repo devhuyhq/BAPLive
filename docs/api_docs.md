@@ -31,18 +31,19 @@ On event|Description
 **[on-change-status](./on-change-status.md)**   |Room thay đổi trạng thái (status)
 **[on-like-room](./on-like-room.md)**           |Có User like Room
 
-##Authentication
-
+Authentication
+---
 * `access-token`: Token được gửi lên từ Headers
 
-##Format result data
-
+Format response data
+---
 * `status`: 0 - success
-* `data`: Data result
+* `data`: Success result
+* `error`: Error result
 
-###Example
-
-```javascript
+Example
+---
+```
 {
   "status": 0,
   "data": {
