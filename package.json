@@ -1,9 +1,9 @@
 {
   "name": "baplive",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "private": false,
   "scripts": {
-    "start": "babel-node ./bin/www",
+    "start": "babel-node ./test",
     "auto-start": "nodemon --exec \"npm start\"",
     "build": "babel lib -d dist"
   },

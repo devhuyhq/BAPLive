@@ -39,6 +39,9 @@ var signIn = exports.signIn = function () {
                     case 3:
                         user = _context.sent;
 
+                        console.log(_UserSchema2.default.getSchemaName());
+                        console.log(password);
+                        console.log(user);
                         if (user) {
                             token = _jsonwebtoken2.default.sign({ user: user }, _Config.JWT_SECRET_KEY);
 
@@ -47,7 +50,7 @@ var signIn = exports.signIn = function () {
                             (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.errorResponse)(69, 'wrong_credential'));
                         }
 
-                    case 5:
+                    case 8:
                     case "end":
                         return _context.stop();
                 }

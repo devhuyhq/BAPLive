@@ -82,7 +82,7 @@ var sendMessage = exports.sendMessage = function () {
                     case 18:
                         user = _context.sent;
 
-                        savedMessage[_UserSchema2.default.getSchemaName()] = user;
+                        savedMessage.user = user;
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(savedMessage));
                         socket.to(roomId).emit('on-message', (0, _ResponseUtil.dataResponse)(savedMessage));
 
@@ -132,10 +132,10 @@ var getMessages = exports.getMessages = function () {
                                     from: _UserSchema2.default.getSchemaName(),
                                     localField: _MessageSchema2.default.getUserIdField(),
                                     foreignField: _UserSchema2.default.getIdField(),
-                                    as: _UserSchema2.default.getSchemaName()
+                                    as: 'user'
                                 }
-                            }, { $unwind: "$" + _UserSchema2.default.getSchemaName() }, {
-                                $project: (_$project = {}, _defineProperty(_$project, _MessageSchema2.default.getUserIdField(), 1), _defineProperty(_$project, _MessageSchema2.default.getUpdateAtField(), 1), _defineProperty(_$project, _MessageSchema2.default.getCreateAtField(), 1), _defineProperty(_$project, _MessageSchema2.default.getRoomIdField(), 1), _defineProperty(_$project, _MessageSchema2.default.getContentField(), 1), _defineProperty(_$project, _UserSchema2.default.getSchemaName(), _defineProperty({}, _UserSchema2.default.getEmailField(), 1)), _$project)
+                            }, { $unwind: "$user" }, {
+                                $project: (_$project = {}, _defineProperty(_$project, _MessageSchema2.default.getUserIdField(), 1), _defineProperty(_$project, _MessageSchema2.default.getUpdateAtField(), 1), _defineProperty(_$project, _MessageSchema2.default.getCreateAtField(), 1), _defineProperty(_$project, _MessageSchema2.default.getRoomIdField(), 1), _defineProperty(_$project, _MessageSchema2.default.getContentField(), 1), _defineProperty(_$project, "user", _defineProperty({}, _UserSchema2.default.getEmailField(), 1)), _$project)
                             }, {
                                 $sort: _defineProperty({}, _MessageSchema2.default.getUpdateAtField(), -1)
                             }, {
@@ -174,7 +174,9 @@ var typing = exports.typing = function () {
                         user = socket.user;
                         result = {
                             user: user,
-                            roomId: roomId,
+                            room: {
+                                _id: roomId
+                            },
                             status: status
                         };
 

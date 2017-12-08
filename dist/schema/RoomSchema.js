@@ -19,7 +19,7 @@ var roomSchema = exports.roomSchema = {
         url: 'url',
         image: 'image',
         status: 'status',
-        admin: 'admin',
+        admin: 'adminId',
         createAt: 'createAt',
         updateAt: 'updateAt'
     }

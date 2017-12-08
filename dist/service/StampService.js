@@ -86,7 +86,7 @@ var sendStamp = exports.sendStamp = function () {
                     case 18:
                         user = _context.sent;
 
-                        savedStamp[_UserSchema2.default.getSchemaName()] = user;
+                        savedStamp.user = user;
                         (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(savedStamp));
                         socket.to(roomId).emit('on-stamp', (0, _ResponseUtil.dataResponse)(savedStamp));
 
@@ -131,10 +131,10 @@ var getStamps = exports.getStamps = function () {
                                     from: _UserSchema2.default.getSchemaName(),
                                     localField: _StampSchema2.default.getUserIdField(),
                                     foreignField: _UserSchema2.default.getIdField(),
-                                    as: _UserSchema2.default.getSchemaName()
+                                    as: 'user'
                                 }
-                            }, { $unwind: "$" + _UserSchema2.default.getSchemaName() }, {
-                                $project: (_$project = {}, _defineProperty(_$project, _StampSchema2.default.getUserIdField(), 1), _defineProperty(_$project, _StampSchema2.default.getUpdateAtField(), 1), _defineProperty(_$project, _StampSchema2.default.getCreateAtField(), 1), _defineProperty(_$project, _StampSchema2.default.getRoomIdField(), 1), _defineProperty(_$project, _StampSchema2.default.getContentField(), 1), _defineProperty(_$project, _UserSchema2.default.getSchemaName(), _defineProperty({}, _UserSchema2.default.getEmailField(), 1)), _$project)
+                            }, { $unwind: "$user" }, {
+                                $project: (_$project = {}, _defineProperty(_$project, _StampSchema2.default.getUserIdField(), 1), _defineProperty(_$project, _StampSchema2.default.getUpdateAtField(), 1), _defineProperty(_$project, _StampSchema2.default.getCreateAtField(), 1), _defineProperty(_$project, _StampSchema2.default.getRoomIdField(), 1), _defineProperty(_$project, _StampSchema2.default.getContentField(), 1), _defineProperty(_$project, "user", _defineProperty({}, _UserSchema2.default.getEmailField(), 1)), _$project)
                             }, {
                                 $sort: _defineProperty({}, _StampSchema2.default.getUpdateAtField(), -1)
                             }, {
