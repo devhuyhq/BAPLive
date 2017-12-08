@@ -1,12 +1,14 @@
 # API Docs
 
+## Models
+
 ## Checklist
 
-###Emit
-
+Emit
+---
 Emit event | Description
 ----|--------
-**[create-room](./create_room.md)**             |User tạo một Room mới
+**[create-room](./api_docs.md#L40)**             |User tạo một Room mới
 **[leave-room](./leave-room.md)**               |User rời khỏi Room
 **[join-room](./join-room.md)**                 |User tham gia vào Room
 **[like-room](like-room.md)**                   |User thích một Room
@@ -18,8 +20,8 @@ Emit event | Description
 **[send-stamp](./send-stamp.md)**               |User gửi stamp trong Room
 **[typing](./typing.md)**                       |User đang nhập tin nhắn
 
-##On
-
+On
+---
 On event|Description
 -------|-----------
 **[on-message](./on-message.md)**               |Nhận được tin nhắn mới từ 1 User
@@ -30,3 +32,31 @@ On event|Description
 **[on-leave-room](./on-leave-room.md)**         |Có User rời khỏi Room
 **[on-change-status](./on-change-status.md)**   |Room thay đổi trạng thái (status)
 **[on-like-room](./on-like-room.md)**           |Có User like Room
+
+Authentication
+---
+* `access-token`: Token được gửi lên từ Headers
+
+Format response data
+---
+* `status`: 0 - success
+* `data`: Success result
+* `error`: Error result
+
+Example
+---
+```
+{
+  "status": 0,
+  "data": {
+    "_id": "5a1d186a6bebf51df9224934",
+    "admin": "5a0d3c24c53c8acb037b39ee",
+    "roomName": "xxx",
+    "createAt": "2017-11-28T08:03:54.658Z",
+    "updateAt": "2017-11-28T08:03:54.658Z",
+    "status": 0,
+    "url": "rtmp://172.16.1.0:1935/live/5a1d186a6bebf51df9224934"
+  }
+}
+```
+
