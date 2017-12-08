@@ -8,7 +8,7 @@ Emit
 ---
 Emit event | Description
 ----|--------
-**[create-room](./create_room.md#L10)**             |User tạo một Room mới
+**[create-room](./api_docs.md#L40)**             |User tạo một Room mới
 **[leave-room](./leave-room.md)**               |User rời khỏi Room
 **[join-room](./join-room.md)**                 |User tham gia vào Room
 **[like-room](like-room.md)**                   |User thích một Room
