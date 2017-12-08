@@ -1,4 +1,5 @@
-#Create room (`create-room`)
+Create room (`create-room`)
+---
 
 Description
 ---
@@ -33,5 +34,5 @@ Sussess Response
 
 Error Response
 ---
-* `error`: Message lỗi trả về khi tạo Room thất bại.
+* `error`: Message lỗi trả về khi thất bại.
 
