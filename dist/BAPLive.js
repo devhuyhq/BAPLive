@@ -150,13 +150,13 @@ var BAPLive = function () {
                             return _ref.apply(this, arguments);
                         };
                     }());
-                    socket.on('change-status', function () {
+                    socket.on('sign-up', function () {
                         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data, ack) {
                             return regeneratorRuntime.wrap(function _callee2$(_context2) {
                                 while (1) {
                                     switch (_context2.prev = _context2.next) {
                                         case 0:
-                                            (0, _RoomService.changeStatus)(socket, data, ack);
+                                            (0, _AuthService.signUp)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -170,13 +170,13 @@ var BAPLive = function () {
                             return _ref2.apply(this, arguments);
                         };
                     }());
-                    socket.on('get-room-info', function () {
+                    socket.on('change-status', function () {
                         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(data, ack) {
                             return regeneratorRuntime.wrap(function _callee3$(_context3) {
                                 while (1) {
                                     switch (_context3.prev = _context3.next) {
                                         case 0:
-                                            (0, _RoomService.getRoomInfo)(socket, data, ack);
+                                            (0, _RoomService.changeStatus)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -190,13 +190,13 @@ var BAPLive = function () {
                             return _ref3.apply(this, arguments);
                         };
                     }());
-                    socket.on('send-message', function () {
+                    socket.on('get-room-info', function () {
                         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(data, ack) {
                             return regeneratorRuntime.wrap(function _callee4$(_context4) {
                                 while (1) {
                                     switch (_context4.prev = _context4.next) {
                                         case 0:
-                                            (0, _MessageService.sendMessage)(socket, data, ack);
+                                            (0, _RoomService.getRoomInfo)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -210,13 +210,13 @@ var BAPLive = function () {
                             return _ref4.apply(this, arguments);
                         };
                     }());
-                    socket.on('get-message', function () {
+                    socket.on('send-message', function () {
                         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(data, ack) {
                             return regeneratorRuntime.wrap(function _callee5$(_context5) {
                                 while (1) {
                                     switch (_context5.prev = _context5.next) {
                                         case 0:
-                                            (0, _MessageService.getMessages)(socket, data, ack);
+                                            (0, _MessageService.sendMessage)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -230,13 +230,13 @@ var BAPLive = function () {
                             return _ref5.apply(this, arguments);
                         };
                     }());
-                    socket.on('send-stamp', function () {
+                    socket.on('get-message', function () {
                         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(data, ack) {
                             return regeneratorRuntime.wrap(function _callee6$(_context6) {
                                 while (1) {
                                     switch (_context6.prev = _context6.next) {
                                         case 0:
-                                            (0, _StampService.sendStamp)(socket, data, ack);
+                                            (0, _MessageService.getMessages)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -250,13 +250,13 @@ var BAPLive = function () {
                             return _ref6.apply(this, arguments);
                         };
                     }());
-                    socket.on('get-stamp', function () {
+                    socket.on('send-stamp', function () {
                         var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(data, ack) {
                             return regeneratorRuntime.wrap(function _callee7$(_context7) {
                                 while (1) {
                                     switch (_context7.prev = _context7.next) {
                                         case 0:
-                                            (0, _StampService.getStamps)(socket, data, ack);
+                                            (0, _StampService.sendStamp)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -270,13 +270,13 @@ var BAPLive = function () {
                             return _ref7.apply(this, arguments);
                         };
                     }());
-                    socket.on('get-profile', function () {
+                    socket.on('get-stamp', function () {
                         var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(data, ack) {
                             return regeneratorRuntime.wrap(function _callee8$(_context8) {
                                 while (1) {
                                     switch (_context8.prev = _context8.next) {
                                         case 0:
-                                            (0, _AuthService.getProfile)(socket, data, ack);
+                                            (0, _StampService.getStamps)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -290,13 +290,13 @@ var BAPLive = function () {
                             return _ref8.apply(this, arguments);
                         };
                     }());
-                    socket.on('typing', function () {
+                    socket.on('get-profile', function () {
                         var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(data, ack) {
                             return regeneratorRuntime.wrap(function _callee9$(_context9) {
                                 while (1) {
                                     switch (_context9.prev = _context9.next) {
                                         case 0:
-                                            (0, _MessageService.typing)(socket, data, ack);
+                                            (0, _AuthService.getProfile)(socket, data, ack);
 
                                         case 1:
                                         case "end":
@@ -308,6 +308,26 @@ var BAPLive = function () {
 
                         return function (_x17, _x18) {
                             return _ref9.apply(this, arguments);
+                        };
+                    }());
+                    socket.on('typing', function () {
+                        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(data, ack) {
+                            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                                while (1) {
+                                    switch (_context10.prev = _context10.next) {
+                                        case 0:
+                                            (0, _MessageService.typing)(socket, data, ack);
+
+                                        case 1:
+                                        case "end":
+                                            return _context10.stop();
+                                    }
+                                }
+                            }, _callee10, _this2);
+                        }));
+
+                        return function (_x19, _x20) {
+                            return _ref10.apply(this, arguments);
                         };
                     }());
                 });

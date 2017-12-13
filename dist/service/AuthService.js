@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getProfile = exports.signIn = undefined;
+exports.getProfile = exports.signUp = exports.signIn = undefined;
 
 var _BAPLive = require("../BAPLive");
 
@@ -20,6 +20,10 @@ var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 var _Config = require("../Config");
 
 var _ResponseUtil = require("../util/ResponseUtil");
+
+var _MessageSchema = require("../schema/MessageSchema");
+
+var _MessageSchema2 = _interopRequireDefault(_MessageSchema);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,9 +43,6 @@ var signIn = exports.signIn = function () {
                     case 3:
                         user = _context.sent;
 
-                        console.log(_UserSchema2.default.getSchemaName());
-                        console.log(password);
-                        console.log(user);
                         if (user) {
                             token = _jsonwebtoken2.default.sign({ user: user }, _Config.JWT_SECRET_KEY);
 
@@ -50,7 +51,7 @@ var signIn = exports.signIn = function () {
                             (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.errorResponse)(69, 'wrong_credential'));
                         }
 
-                    case 8:
+                    case 5:
                     case "end":
                         return _context.stop();
                 }
@@ -63,15 +64,38 @@ var signIn = exports.signIn = function () {
     };
 }();
 
-var getProfile = exports.getProfile = function () {
+var signUp = exports.signUp = function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(socket, data, ack) {
+        var email, password, user, result, savedUser, token;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
                     case 0:
-                        (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(socket.user));
+                        email = data.email, password = data.password;
+                        user = {
+                            email: email,
+                            password: password
+                        };
+                        _context2.next = 4;
+                        return _BAPLive2.default.database.collection(_UserSchema2.default.getSchemaName()).insertOne(user);
 
-                    case 1:
+                    case 4:
+                        result = _context2.sent;
+                        _context2.next = 7;
+                        return _BAPLive2.default.database.collection(_UserSchema2.default.getSchemaName()).findOne({ email: email, password: password });
+
+                    case 7:
+                        savedUser = _context2.sent;
+
+                        if (savedUser) {
+                            token = _jsonwebtoken2.default.sign({ savedUser: savedUser }, _Config.JWT_SECRET_KEY);
+
+                            (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(token));
+                        } else {
+                            (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.errorResponse)(69, 'wrong_credential'));
+                        }
+
+                    case 9:
                     case "end":
                         return _context2.stop();
                 }
@@ -79,7 +103,28 @@ var getProfile = exports.getProfile = function () {
         }, _callee2, undefined);
     }));
 
-    return function getProfile(_x4, _x5, _x6) {
+    return function signUp(_x4, _x5, _x6) {
         return _ref2.apply(this, arguments);
+    };
+}();
+
+var getProfile = exports.getProfile = function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(socket, data, ack) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+                switch (_context3.prev = _context3.next) {
+                    case 0:
+                        (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(socket.user));
+
+                    case 1:
+                    case "end":
+                        return _context3.stop();
+                }
+            }
+        }, _callee3, undefined);
+    }));
+
+    return function getProfile(_x7, _x8, _x9) {
+        return _ref3.apply(this, arguments);
     };
 }();
