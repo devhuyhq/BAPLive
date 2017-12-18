@@ -88,7 +88,7 @@ var signUp = exports.signUp = function () {
                         savedUser = _context2.sent;
 
                         if (savedUser) {
-                            token = _jsonwebtoken2.default.sign({ savedUser: savedUser }, _Config.JWT_SECRET_KEY);
+                            token = _jsonwebtoken2.default.sign({ user: savedUser }, _Config.JWT_SECRET_KEY);
 
                             (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(token));
                         } else {

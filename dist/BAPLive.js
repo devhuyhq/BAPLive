@@ -91,11 +91,15 @@ var BAPLive = function () {
 
                 io.use(function (socket, next) {
                     var token = socket.request.headers && socket.request.headers.token;
+
                     if (token) {
                         try {
                             var decoded = _jsonwebtoken2.default.verify(token, _Config.JWT_SECRET_KEY);
+                            console.log(decoded);
                             socket.user = decoded.user;
-                        } catch (err) {}
+                        } catch (err) {
+                            console.log(err);
+                        }
                     }
                     next();
                 });
