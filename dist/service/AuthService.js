@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getProfile = exports.signUp = exports.signIn = undefined;
+exports.getProfile = exports.signUp = exports.authentication = exports.signIn = undefined;
 
 var _BAPLive = require("../BAPLive");
 
@@ -64,28 +64,49 @@ var signIn = exports.signIn = function () {
     };
 }();
 
-var signUp = exports.signUp = function () {
+var authentication = exports.authentication = function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(socket, data, ack) {
-        var email, password, user, result, savedUser, token;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
+                    case 0:
+                        (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(true));
+
+                    case 1:
+                    case "end":
+                        return _context2.stop();
+                }
+            }
+        }, _callee2, undefined);
+    }));
+
+    return function authentication(_x4, _x5, _x6) {
+        return _ref2.apply(this, arguments);
+    };
+}();
+
+var signUp = exports.signUp = function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(socket, data, ack) {
+        var email, password, user, result, savedUser, token;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+                switch (_context3.prev = _context3.next) {
                     case 0:
                         email = data.email, password = data.password;
                         user = {
                             email: email,
                             password: password
                         };
-                        _context2.next = 4;
+                        _context3.next = 4;
                         return _BAPLive2.default.database.collection(_UserSchema2.default.getSchemaName()).insertOne(user);
 
                     case 4:
-                        result = _context2.sent;
-                        _context2.next = 7;
+                        result = _context3.sent;
+                        _context3.next = 7;
                         return _BAPLive2.default.database.collection(_UserSchema2.default.getSchemaName()).findOne({ email: email, password: password });
 
                     case 7:
-                        savedUser = _context2.sent;
+                        savedUser = _context3.sent;
 
                         if (savedUser) {
                             token = _jsonwebtoken2.default.sign({ user: savedUser }, _Config.JWT_SECRET_KEY);
@@ -97,34 +118,34 @@ var signUp = exports.signUp = function () {
 
                     case 9:
                     case "end":
-                        return _context2.stop();
-                }
-            }
-        }, _callee2, undefined);
-    }));
-
-    return function signUp(_x4, _x5, _x6) {
-        return _ref2.apply(this, arguments);
-    };
-}();
-
-var getProfile = exports.getProfile = function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(socket, data, ack) {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-            while (1) {
-                switch (_context3.prev = _context3.next) {
-                    case 0:
-                        (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(socket.user));
-
-                    case 1:
-                    case "end":
                         return _context3.stop();
                 }
             }
         }, _callee3, undefined);
     }));
 
-    return function getProfile(_x7, _x8, _x9) {
+    return function signUp(_x7, _x8, _x9) {
         return _ref3.apply(this, arguments);
+    };
+}();
+
+var getProfile = exports.getProfile = function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(socket, data, ack) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+                switch (_context4.prev = _context4.next) {
+                    case 0:
+                        (0, _ResponseUtil.sendAck)(ack, (0, _ResponseUtil.dataResponse)(socket.user));
+
+                    case 1:
+                    case "end":
+                        return _context4.stop();
+                }
+            }
+        }, _callee4, undefined);
+    }));
+
+    return function getProfile(_x10, _x11, _x12) {
+        return _ref4.apply(this, arguments);
     };
 }();

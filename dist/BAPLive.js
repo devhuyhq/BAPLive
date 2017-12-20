@@ -44,7 +44,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SECURED_EVENTS = ['create-room', 'like-room', 'change-status', 'send-message', 'send-stamp', 'get-profile'];
+var SECURED_EVENTS = ['authentication', 'create-room', 'like-room', 'change-status', 'send-message', 'send-stamp', 'get-profile'];
 
 var BAPLive = function () {
     function BAPLive() {
@@ -95,7 +95,6 @@ var BAPLive = function () {
                     if (token) {
                         try {
                             var decoded = _jsonwebtoken2.default.verify(token, _Config.JWT_SECRET_KEY);
-                            console.log(decoded);
                             socket.user = decoded.user;
                         } catch (err) {
                             console.log(err);
@@ -334,6 +333,9 @@ var BAPLive = function () {
                             return _ref10.apply(this, arguments);
                         };
                     }());
+                    socket.on('authentication', function (data, ack) {
+                        (0, _AuthService.authentication)(socket, data, ack);
+                    });
                 });
             }
         }
