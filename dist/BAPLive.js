@@ -95,7 +95,9 @@ var BAPLive = function () {
                     if (token) {
                         try {
                             var decoded = _jsonwebtoken2.default.verify(token, _Config.JWT_SECRET_KEY);
-                            socket.user = decoded.user;
+                            if (decoded && decoded.user) {
+                                socket.user = decoded.user;
+                            }
                         } catch (err) {
                             console.log(err);
                         }

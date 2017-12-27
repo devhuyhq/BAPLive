@@ -171,7 +171,20 @@ var typing = exports.typing = function () {
                 switch (_context3.prev = _context3.next) {
                     case 0:
                         roomId = data.roomId, status = data.status;
-                        user = socket.user;
+                        user = void 0;
+
+                        if (!socket.user) {
+                            _context3.next = 6;
+                            break;
+                        }
+
+                        _context3.next = 5;
+                        return _BAPLive2.default.database.collection(_UserSchema2.default.getSchemaName()).findOne(_defineProperty({}, _UserSchema2.default.getIdField(), new ObjectID(socket.user[_UserSchema2.default.getIdField()])), _defineProperty({}, _UserSchema2.default.getPasswordField(), 0));
+
+                    case 5:
+                        user = _context3.sent;
+
+                    case 6:
                         result = {
                             user: user,
                             room: {
@@ -182,7 +195,7 @@ var typing = exports.typing = function () {
 
                         socket.to(roomId).emit('on-typing', (0, _ResponseUtil.dataResponse)(result));
 
-                    case 4:
+                    case 8:
                     case "end":
                         return _context3.stop();
                 }
